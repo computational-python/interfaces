@@ -354,24 +354,17 @@ In order to read data from a binary file written by a C- or Fortran program spec
 
 ### C/Fortran differences
 
-<div class="row">
- <div class="col-md-6">
- foo
-</div>
-<div class="col-md-6">
- bar
-</div>
-</div>
-
-    # a.c                       |  ! a.f90
-    #include <stdio.h>          |  double precision :: pi = 3.1415927d0
-    main() {                    |  open(1,'ffile',format='unformatted')
-    FILE *fp;                   |  write(1) pi
-    double pi = 3.1415927;      |  close(1)
-    fp=fopen("cfile","wb");     |  end
-    fwrite(&pi,sizeof(pi),1,fp);|
-    fclose(fp);                 |
-    }                           |
+~~~
+# a.c                       |  ! a.f90
+#include <stdio.h>          |  double precision :: pi = 3.1415927d0
+main() {                    |  open(1,'ffile',format='unformatted')
+FILE *fp;                   |  write(1) pi
+double pi = 3.1415927;      |  close(1)
+fp=fopen("cfile","wb");     |  end
+fwrite(&pi,sizeof(pi),1,fp);|
+fclose(fp);                 |
+}                           |
+~~~
 
 <!--
 >>> with open("a.c", "w") as csource:
